@@ -3,9 +3,9 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
-*/
-*.*
-
+.*
+_*
+vim82/
 !.gitignore
 !vimrc
 !myvimrc
