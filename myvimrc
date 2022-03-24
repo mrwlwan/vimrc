@@ -28,28 +28,51 @@ set runtimepath+=$VIMRUNTIME
 " 加载插件
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin(g:my_plugged)
-    Plug 'tpope/vim-abolish'                 " 替换增强, 同时可快速改变变量的命名方式
-    Plug 'vim-airline/vim-airline'               " 命令栏增
-    Plug 'jiangmiao/auto-pairs'                  " 自动插入删除配对符号, 跟 surround 的区别: 自动操作的, 但 surround 功能更丰富, 支持 html, xml 标签
-    Plug 'ctrlpvim/ctrlp.vim'                    " 支持对文件, 缓冲区, MRU(Most Recently Used)文件和标签进行模糊搜索, 支持正则表达式
-    Plug 'mattn/emmet-vim'                       " HTML/CSS/XML/PHP/HAML 等代码编写快捷工具
-    Plug 'scrooloose/nerdcommenter'              " 注释
-    Plug 'scrooloose/nerdtree'                   " 文件目录树
-    Plug 'luochen1990/rainbow'                   " 彩色括号增强
-    Plug 'tpope/vim-repeat'                      " 让 . 键可重复部分插件的操作
-    Plug 'vim-scripts/restore_view.vim'          " View 管理
-    Plug 'vim-scripts/sessionman.vim'            " Sessions 管理器
-    Plug 'altercation/vim-colors-solarized'      " Solarized 主题
-    Plug 'ervandew/supertab'                     " Tab 键上下文自动补全
-    Plug 'tpope/vim-surround'                    " 高效操作括号、引号或html、xml标签相关的配对
-    Plug 'godlygeek/tabular'                     " 文本对齐
+    " 替换增强, 同时可快速改变变量的命名方式
+    Plug 'tpope/vim-abolish'
+    " 命令栏增
+    Plug 'vim-airline/vim-airline'
+    " 自动插入删除配对符号, 跟 surround 的区别: 自动操作的, 但 surround 功能更丰富, 支持 html, xml 标签
+    Plug 'jiangmiao/auto-pairs'
+    " 支持对文件, 缓冲区, MRU(Most Recently Used)文件和标签进行模糊搜索, 支持正则表达式
+    Plug 'ctrlpvim/ctrlp.vim'
+    " ctrlp 的扩展, 支持对函数的模糊搜索
+    Plug 'tacahiroy/ctrlp-funky'
+    " 快速跳转
+    Plug 'easymotion/vim-easymotion'
+    " HTML/CSS/XML/PHP/HAML 等代码编写快捷工具
+    Plug 'mattn/emmet-vim'
+    " % 匹配跳转增强
+    Plug 'benjifisher/matchit.zip'
+    " 注释
+    Plug 'scrooloose/nerdcommenter'
+    " 文件目录树
+    Plug 'scrooloose/nerdtree'
+    " 彩色括号增强
+    Plug 'luochen1990/rainbow'
+    " 让 . 键可重复部分插件的操作
+    Plug 'tpope/vim-repeat'
+    " View 管理
+    Plug 'vim-scripts/restore_view.vim'
+    " Sessions 管理器
+    Plug 'vim-scripts/sessionman.vim'
+    " Solarized 主题
+    Plug 'altercation/vim-colors-solarized'
+    " Tab 键上下文自动补全
+    Plug 'ervandew/supertab'
+    " 高效操作括号、引号或html、xml标签相关的配对
+    Plug 'tpope/vim-surround'
+    " 文本对齐
+    Plug 'godlygeek/tabular'
+    " 快速选择标签间的内容
+    Plug 'gcmt/wildfire.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 通用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('win32') || has('win64')
-    set termencoding=cp850                   " cmd.exe cp850
+    set termencoding=cp850                       " cmd.exe cp850
     set encoding=utf-8
     setglobal fileencoding=utf-8
     set fileencodings=ucs-bom,utf-8,utf-16le,cp1252,iso-8859-15 " Windows has traditionally used cp1252, so it's probably wise to fallback into cp1252 instead of eg. iso-8859-15. Newer Windows files might contain utf-8 or utf-16 LE so we might want to try them first.
@@ -129,37 +152,26 @@ source $VIMRUNTIME/menu.vim
 autocmd BufEnter * if bufname('') !~ '^\[A-Za-z0-9\]*://' | lcd %:p:h | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Airline
+" Plugins 设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Airline
 let g:airline_highlighting_cache = 1             " 增强性能
 let g:airline_powerline_fonts = 1                " 使用 powerline 修改过的字体, 显示特殊符号
 let g:airline#extensions#tabline#enabled = 1     " 启用顶部的 tabline, 用于显示 buffers
 let g:airline#extensions#tabline#buffer_idx_mode = 1 " buffers index 显示格式
 let g:airline#extensions#tabline#fnamemod = ':t' " Buffer 只显示文件名, 不显示全路径
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto-pairs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:AutoPairsFlyMode = 1                       " 启用飞行模式
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_cache_dir = g:my_ctrlp               " 设置 Cache 文件夹
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Easymotion
+let g:EasyMotion_smrtcase = 1                   " 智能大小写敏感
+let g:EasyMotion_do_mapping = 0                  " 禁用默认的所有快捷键, 因为实在太多, 改为自定义个人所需的快捷键
 " Nerdcommenter 注释
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:NERDSpaceDelims = 1                        "注释符后自动添加空格
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rainbow 彩色括号
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rainbow_active=1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Solarized 主题
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1                      " 跟随终端的透明度
 let g:solarized_contrast='normal'                " 颜色反差度: normal, high, low
@@ -171,33 +183,68 @@ colo solarized                                   " 启用 solarized 主题
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ','                              " 指定 leader 键(默认是 '\', 改为 ',' 更大众化)
 let maplocalleader = ','                         " 指定 maplocalleader 键
-map <leader>ee :execute ':e! '.g:my_vimrc<cr>    " 编辑 vimrc 文件
-map <leader>es :source %<cr>                     " 加载当前文件
-map <A-left> :bprevious<cr>                      " 上一个 buffer
-map <A-right> :bnext<cr>                         " 下一个 buffer
-map <A-down> :bdelete<cr>                        " 关闭当前 buffer
-map <A-up> :bdelete!<cr>                         " 强制关闭当前 buffer
-map <C-A-left> :sbprevious<cr>                   " 新建窗口打开上一个 buffer
-map <C-A-right> :sbnext<cr>                      " 新建窗口打开下一个 buffer
-map <C-A-up> :vertical sbprevious<cr>            " 新建垂直窗口打开上一个 buffer
-map <C-A-down> :vertical sbnext<cr>              " 新建垂直窗口打开下一个 buffer
-map <A-w> <C-w>w                                 " 循环切换窗口
-map <A-h> <C-w>h                                 " 切换到左边窗口
-map <A-j> <C-w>j                                 " 切换到下边窗口
-map <A-k> <C-w>k                                 " 切换到上边窗口
-map <A-l> <C-w>l                                 " 切换右边窗口
-map <A-q> :quit<cr>                              " 退出窗口
-map <A-c> :close<cr>                             " 关闭窗口
-map <A-o> :only<cr>                              " 关闭其它窗口
-map <A-H> <C-w>H                                 " 向左移动窗口
-map <A-J> <C-w>J                                 " 向下移动窗口
-map <A-K> <C-w>K                                 " 向上移动窗口
-map <A-L> <C-w>L                                 " 向右移动窗口
-silent! call repeat#set("\<Plug>MyWonderfulMap", v:count) " For vim-repeat, 必须放在快捷键映射的最后, 以防冲突
-let g:ctrlp_map = '<leader>pp'                   " For ctrlP
-map <leader>nt :NERDTreeToggle<cr>               " 开关 NERDTree
-map <leader>nf :NERDTreeFocus<cr>                " 切换到 NERDTree 窗口
-map <leader>nF :NERDTreeFind<cr>                 " NERDTree 查找
+
+" Vimrc 相关
+" 编辑 vimrc 文件
+map <leader>ee :execute ':e! '.g:my_vimrc<cr>
+" 加载当前文件
+map <leader>es :source %<cr>
+
+" Buffer 相关
+" 上/下一个 buffer
+map <A-left> :bprevious<cr>
+map <A-right> :bnext<cr>
+" 关闭(强制)当前 buffer
+map <A-down> :bdelete<cr>
+map <A-up> :bdelete!<cr>
+" 新建窗口打开上/下一个 buffer
+map <C-A-left> :sbprevious<cr>
+map <C-A-right> :sbnext<cr>
+" 新建垂直窗口打开上/下一个 buffer
+map <C-A-up> :vertical sbprevious<cr>
+map <C-A-down> :vertical sbnext<cr>
+
+" 窗口相关
+" 循环切换窗口
+map <A-w> <C-w>w
+" 切换到左下上右边窗口
+map <A-h> <C-w>h
+map <A-j> <C-w>j
+map <A-k> <C-w>k
+map <A-l> <C-w>l
+" 退出/关闭窗口
+map <A-q> :quit<cr>
+map <A-c> :close<cr>
+" 关闭其它窗口
+map <A-o> :only<cr>
+" 向左下上右移动窗口
+map <A-H> <C-w>H
+map <A-J> <C-w>J
+map <A-K> <C-w>K
+map <A-L> <C-w>L
+
+" CtrlP
+let g:ctrlp_map = '<leader>pp'
+
+" Easymotion
+" 向后查找双字符
+nmap <leader><leader>f <Plug>(easymotion-f2)
+" 向前查找双字符
+nmap <leader><leader>F <Plug>(easymotion-F2)
+" 前后查找双字符
+nmap <leader><leader>s <Plug>(easymotion-s2)
+
+" NERDTree
+" 开关 NERDTree
+map <leader>nt :NERDTreeToggle<cr>
+" 切换到 NERDTree 窗口
+map <leader>nf :NERDTreeFocus<cr>
+" NERDTree 查找
+map <leader>nF :NERDTreeFind<cr>
+
+" Repeat
+" 必须放在快捷键映射的最后, 以防冲突
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 其它
