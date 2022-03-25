@@ -64,7 +64,7 @@ call plug#begin(g:my_plugged)
     Plug 'tpope/vim-surround'
     " 文本对齐
     Plug 'godlygeek/tabular'
-    " 快速选择标签间的内容
+    " 快速选择标签间的内容, 默认 <enter> 键选择
     Plug 'gcmt/wildfire.vim'
 call plug#end()
 
@@ -146,7 +146,7 @@ set guioptions-=T                                " 隐藏工具栏
 set showtabline=0                                " 隐藏标签栏
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13,Consolas:h14,Courier_New:h14
 source $VIMRUNTIME/mswin.vim                     " 启用 Windows 剪贴板操作方式: Ctrl+c, Ctrl+v
-source $VIMRUNTIME/delmenu.vim                    " 解决菜单的乱码, 所以不要注释掉
+source $VIMRUNTIME/delmenu.vim                   " 解决菜单的乱码, 所以不要注释掉
 source $VIMRUNTIME/menu.vim
 " 改变当前目录为打开文件的目录
 autocmd BufEnter * if bufname('') !~ '^\[A-Za-z0-9\]*://' | lcd %:p:h | endif
@@ -164,9 +164,14 @@ let g:airline#extensions#tabline#fnamemod = ':t' " Buffer 只显示文件名, �
 let g:AutoPairsFlyMode = 1                       " 启用飞行模式
 " CtrlP
 let g:ctrlp_cache_dir = g:my_ctrlp               " 设置 Cache 文件夹
+" Ctrlp-funky
+let g:ctrlp_funky_matchtype = 'path'             " 匹配字符高亮
+let g:ctrlp_funky_syntax_highlight = 1           " 语法高亮
 " Easymotion
-let g:EasyMotion_smrtcase = 1                   " 智能大小写敏感
+let g:EasyMotion_smrtcase = 1                    " 智能大小写敏感
 let g:EasyMotion_do_mapping = 0                  " 禁用默认的所有快捷键, 因为实在太多, 改为自定义个人所需的快捷键
+" Matchit.zip
+let b:match_ignorecase = 1                       " 忽略大小写
 " Nerdcommenter 注释
 let g:NERDSpaceDelims = 1                        "注释符后自动添加空格
 " Rainbow 彩色括号
@@ -183,6 +188,8 @@ colo solarized                                   " 启用 solarized 主题
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ','                              " 指定 leader 键(默认是 '\', 改为 ',' 更大众化)
 let maplocalleader = ','                         " 指定 maplocalleader 键
+" 个人快捷键, 以 z 开头
+noremap <leader>zh :noh<cr>                      " 取消高亮
 
 " Vimrc 相关
 " 编辑 vimrc 文件
@@ -222,9 +229,15 @@ map <A-H> <C-w>H
 map <A-J> <C-w>J
 map <A-K> <C-w>K
 map <A-L> <C-w>L
+" 所有窗口等同大小
+map <A-=> <C-w>=
 
 " CtrlP
 let g:ctrlp_map = '<leader>pp'
+
+" CtrlP-funky
+nnoremap <Leader>pf :CtrlPFunky<Cr>
+nnoremap <Leader>pu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " Easymotion
 " 向后查找双字符
@@ -241,6 +254,10 @@ map <leader>nt :NERDTreeToggle<cr>
 map <leader>nf :NERDTreeFocus<cr>
 " NERDTree 查找
 map <leader>nF :NERDTreeFind<cr>
+
+" Wildfire
+" Quick selection, 类似于 easymotion
+nmap <leader>ws <Plug>(wildfire-quick-select)
 
 " Repeat
 " 必须放在快捷键映射的最后, 以防冲突
