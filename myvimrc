@@ -83,12 +83,10 @@ syntax on                                        " 语法高亮
 filetype plugin indent on                        " 自动识别打开的文件类型
 set background=dark                              " 设置黑背景色
 set ruler                                        " 状态栏显示行号
-set t_Co=256                                     " 开启256颜色
 set number                                       " 左侧栏显示行号
 set showmode                                     " 状态栏显示当前模式
 set showcmd                                      " 在状态栏显示输入的命令
 set wrap                                         " 自动折行
-" set nowrap                                     " 禁止自动折行
 set autoindent                                   " 开启自动缩进
 set foldenable                                   " 启用自动折叠
 set mouse=a                                      " 启用鼠标复制模式
@@ -141,6 +139,7 @@ set backspace=indent,eol,start                   " 修复非兼容模式下退�
 set shortmess+=filmnrxoOtT                       " 避免一部分 hit enter 的提示
 "set matchpairs+=<:>                             " 控制哪些字符可以通过 % 命令进行匹配
 set pastetoggle=<F12>                            " 设定 paste 粘贴模式的开关(进入 paste 粘贴模式可处理粘贴时的缩进问题)
+set t_Co=256                                     " 开启256颜色
 set guioptions-=m                                " 隐藏菜单栏
 set guioptions-=T                                " 隐藏工具栏
 set showtabline=0                                " 隐藏标签栏

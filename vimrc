@@ -123,7 +123,7 @@
         Plugin 'nathanaelkane/vim-indent-guides'            " # 可视化显示缩进提示线
         Plugin 'vim-scripts/restore_view.vim'               " # view
         " Plugin 'mhinz/vim-signify'                          " # 文件差异高亮展示的Vim版本控制插件
-        Plugin 'tpope/vim-abolish.git'                      " # 替换加强版, 可实现交换功能, 变量名驼峰统一之类
+        Plugin 'tpope/vim-abolish'                      " # 替换加强版, 可实现交换功能, 变量名驼峰统一之类
         Plugin 'osyo-manga/vim-over'                        " # 替换高亮预览
         Plugin 'gcmt/wildfire.vim'                          " # 选择成对标签里的内容
     " }
