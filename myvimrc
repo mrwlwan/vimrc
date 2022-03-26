@@ -108,10 +108,8 @@ set iskeyword-=.                                 " 用于 * 搜索, 设定". # -
 set iskeyword-=#
 set iskeyword-=-
 " set autowrite                                  " 自动保存
-" set backup                                      " 自动备份
 set nobackup
 " let &backupdir=g:my_backup
-" set swapfile                                    " 设置 swap
 set noswapfile
 " let &directory=g:my_swap
 set undofile                                     " undo 备份
@@ -123,7 +121,6 @@ set tabstop=4                                    " tab 字符的显示宽度
 set expandtab                                    " tab 字符替换为空格
 set softtabstop=4                                " tab 实际占用空格数
 set shiftwidth=4                                 " 手动缩进字符数
-" set showtabline=2                                " 总是显示标签栏
 set tabpagemax=15                                " 显示的最大标签数
 set scrolloff=5                                  " 保持在光标上下最少行数
 set scrolljump=5                                 " 点击右边滚动条时滚动的行数
@@ -154,6 +151,8 @@ autocmd BufEnter * if bufname('') !~ '^\[A-Za-z0-9\]*://' | lcd %:p:h | endif
 " Plugins 设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
+let g:airline#extensions#disable_rtp_load = 1    " 禁止启动时加载 rtp 里的相关 Plguins
+let g:airline_extensions = ['tabline']           " 仅加载指定的扩展
 let g:airline_highlighting_cache = 1             " 增强性能
 let g:airline_powerline_fonts = 1                " 使用 powerline 修改过的字体, 显示特殊符号
 let g:airline#extensions#tabline#enabled = 1     " 启用顶部的 tabline, 用于显示 buffers
